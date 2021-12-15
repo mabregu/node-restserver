@@ -19,10 +19,10 @@ For this I leave you an example.
 | Endpoint | HTTP | Description |
 | --- | --- | --- |
 | `/api/users` | GET | Retrieve all the products |
-| `/api/users/:slug` | GET | Retrieve a specific product with `slug` |
+| `/api/users/:id` | GET | Retrieve a specific product with `id` |
 | `/api/users` | POST | Create a new product |
-| `/api/users/:slug` | PUT | Update a existing product |
-| `/api/users/:slug` | DELETE | Remove a product |
+| `/api/users/:id` | PUT | Update a existing product |
+| `/api/users/:id` | DELETE | Remove a product |
 
 ## License
 MIT (c) Martin Abregú
