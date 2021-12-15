@@ -18,11 +18,11 @@ For this I leave you an example.
 
 | Endpoint | HTTP | Description |
 | --- | --- | --- |
-| `/api/users` | GET | Retrieve all the products |
-| `/api/users/:id` | GET | Retrieve a specific product with `id` |
-| `/api/users` | POST | Create a new product |
-| `/api/users/:id` | PUT | Update a existing product |
-| `/api/users/:id` | DELETE | Remove a product |
+| `/api/users` | GET | Retrieve all the users |
+| `/api/users/:id` | GET | Retrieve a specific user with `id` |
+| `/api/users` | POST | Create a new user |
+| `/api/users/:id` | PUT | Update a existing user |
+| `/api/users/:id` | DELETE | Remove a user |
 
 ## License
 MIT (c) Martin Abregú
