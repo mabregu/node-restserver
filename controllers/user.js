@@ -1,10 +1,13 @@
 const MySQL = require('../database/mysql');
-const mysql = new MySQL();
+const db = new MySQL();
+const moment = require('moment');
+const table = 'users';
+const myJson = require('../resources/users.json');
 
 const getUsers = (req, res) => {
-    const query = `SELECT * FROM users`;
+    const query = `SELECT id, name, email, created_at, updated_at FROM ${table}`;
     
-    mysql.query(query, (err, rows) => {
+    db.query(query, (err, rows) => {
         if (err) {
             console.log('[MySQL] Error: ', err);
             return res.status(500).json({
@@ -18,11 +21,19 @@ const getUsers = (req, res) => {
     });
 }
 
+const getMyJson = (req, res) => {
+    res.send(myJson);
+}
+
 const getUser = (req, res) => {
     let id = req.params.id;
-    let query = `SELECT * FROM users WHERE id = ${id}`;
+    let query = `
+        SELECT id, name, email, created_at, updated_at
+        FROM ${table} 
+        WHERE id = ${id}
+    `;
     
-    mysql.query(query, (err, rows) => {
+    db.query(query, (err, rows) => {
         if (err) {
             console.log('[MySQL] Error: ', err);
             return res.status(500).json({
@@ -37,11 +48,16 @@ const getUser = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-    let body = req.body;    
+    let body = req.body;
     let id = req.params.id;
-    let query = `UPDATE users SET name = '${body.name}', email = '${body.email}' WHERE id = ${id}`;
+    let today = moment().format("YYYY-MM-DD hh:mm:ss");
+    let query = `
+        UPDATE ${table}
+        SET name = '${body.name}', email = '${body.email}', updated_at = '${today}' 
+        WHERE id = ${id}
+    `;
     
-    mysql.query(query, (err, rows) => {
+    db.query(query, (err, rows) => {
         if (err) {
             console.log('[MySQL] Error: ', err);
             return res.status(500).json({
@@ -57,9 +73,12 @@ const updateUser = (req, res) => {
 
 const createUser = (req, res) => {
     let body = req.body;
-    let query = `INSERT INTO users (name, email) VALUES ('${body.name}', '${body.email}')`;
+    let query = `
+        INSERT INTO ${table} (name, email)
+        VALUES ('${body.name}', '${body.email}')
+    `;
     
-    mysql.query(query, (err, rows) => {
+    db.query(query, (err, rows) => {
         if (err) {
             console.log('[MySQL] Error: ', err);
             return res.status(500).json({
@@ -75,9 +94,9 @@ const createUser = (req, res) => {
 
 const deleteUser = (req, res) => {
     let id = req.params.id;
-    let query = `DELETE FROM users WHERE id = ${id}`;
+    let query = `DELETE FROM ${table} WHERE id = ${id}`;
     
-    mysql.query(query, (err, rows) => {
+    db.query(query, (err, rows) => {
         if (err) {
             console.log('[MySQL] Error: ', err);
             return res.status(500).json({
@@ -96,5 +115,6 @@ module.exports = {
     getUser,
     updateUser,
     createUser,
-    deleteUser
+    deleteUser,
+    getMyJson
 }

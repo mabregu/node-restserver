@@ -31,7 +31,7 @@ class MySQL {
                     return reject(err);
                 }
 
-                resolve();
+                resolve("[MySQL] Connection closed");
             });
         });
     }

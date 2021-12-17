@@ -1,8 +1,10 @@
 const { Router } = require('express');
-const { getUsers, getUser, createUser, updateUser, deleteUser } = require('../controllers/user');
+const { getUsers, getUser, createUser, updateUser, deleteUser, getMyJson } = require('../controllers/user');
 const router = Router();
 
 router.get('/', getUsers);
+
+router.get('/json', getMyJson);
 
 router.get('/:id', getUser);
 
